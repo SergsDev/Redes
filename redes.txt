@@ -1,0 +1,34 @@
+codigo para subredes
+
+
+desde el switch
+
+
+cambiar nombre y agregar contraseña al switch
+
+switch> enable
+
+switch# (modo super usuario)
+
+switch# configure terminal
+
+switch(config)# hostname (nombre del switch)
+
+"nombre(config)"#line console 0
+
+"nombre(config-line)"#password (contraseña)
+
+"nombre(config-line)"#exit
+#end
+
+
+Poner contraseña al modo super usuario
+nombre (config)#enable secret "contraseña"
+
+
+Configurar ip del switch desde consola
+"nombre(config)"#interface vlan1
+"nombre (config-if)"#ip address (ip - mascara)
+"nombre (config-if)"#no shutdown
+"nombre (config-if)"#exit
+
