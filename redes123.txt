@@ -1,0 +1,113 @@
+cambiar nombre y agregar contraseña al switch
+switch> enable
+switch# (modo super usuario)
+switch# configure terminal
+switch (config)# hostname (nombre del switch)
+switch (config)"#line console 0
+switch (config-line)"#password (contraseña)
+switch (config-line)"#exit
+#end
+
+
+Poner contraseña al modo super usuario
+switch (config)#enable secret "contraseña"
+
+
+Configurar ip del switch desde consola
+switch (config)"#interface vlan1
+switch (config-if)"#ip address (ip - mascara)
+switch (config-if)"#no shutdown
+switch (config-if)"#exit
+
+
+configurar contraseña de acceso remoto a vlans
+switch(config)#line vty 0 4 (rango de 0 a 15)
+switch(config-line)#password "contraseña"
+switch(config-line)#login
+switch(config-line)#exit
+switch(config)#
+
+
+Configurar IP,GATEWAY,MASCARA de los switches de una vlan
+switch(config)#interface vlan 1
+switch(config-if)#ip address "direccion ip" "mascara"
+switch(config-if)#no shutdown
+switch(config-if)#exit
+switch(config)# ip default-gateway "direccion del gateway"
+switch(config)#exit
+switch(config-line)#
+
+
+Ver las vlans dentro del switch
+switch# show vlan
+
+
+Crear una vlan
+switch(config)#vlan "id de la vlan"
+switch(config-vlan)#name "nombre de la vlan"
+switch(config-vlan)#exit
+
+
+
+Asignar puertos a una vlan
+switch(config)#interface range fa0/1-6
+switch(config-range-if)#switchport access vlan "id de vlan"
+switch(config-range-if)#exit
+
+
+Configurar troncales entre switches
+switch(config)#interface gi0/1
+switch(config-range-if)#switchport mode trunk
+switch(config-range-if)#exit
+
+
+Configurar enrutamiento entre vlans
+Agregar un router 1941
+cambiar el puerto conectado a modo troncal
+
+crear subinterfaces para cada vlan
+switch(config)#interface gi0/0.15 "15 es el numero de la subinterfaz"
+switch(config-sub-if)#encapsulation dot1q 15 "es el numero de la vlan"
+switch(config-sub-if)#ip address "default gateway de la subred" "mascara"
+switch(config-sub-if)#exit
+
+desactivar puertos Fastethernet de los switches
+(el comando shutdown apaga, no shutdown enciende)
+
+Desactivar un solo puerto
+switch(config)#interface fa0/1
+switch(config-if)#shutdown
+switch(config-if)#exit
+switch(config)#
+
+
+desactivar varios puertos consecutivos
+switch(config)#interface range fa0/5-10
+switch(config-if-range)#shutdown
+switch(config)#exit
+switch(config)#
+
+
+desactivar varios puertos NO consecutivos
+switch(config)#interface range fa0/11,fa0/15,fa0/19 (ejemplo)
+switch(config-if-range)#shutdown
+switch(config-if-range)#exit
+switch(config)#
+
+
+consultar direccion MAC de un pc o servidor
+(en el command prompt)
+
+C:\>ipconfig /all
+
+
+consultar tabla MAC
+switch#show mac-address-table
+
+
+realizar prueba de telnet
+
+C:\>telnet "direccion ip de la vlan"
+
+
+
